@@ -121,3 +121,4 @@ bazel-testlogs
 /.vscode/
 /.scannerwork/
 /.bazelrc.local
+/target/
