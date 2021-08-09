@@ -45,5 +45,10 @@ public class LoginPage extends BeforeAndAfter{
 		}
 		return this;
 	}
+	
+	public RegistrationPage clickRegisterAccount() {
+		driver.findElement(oRegister).click();
+		return new RegistrationPage();
+	}
 
 }
