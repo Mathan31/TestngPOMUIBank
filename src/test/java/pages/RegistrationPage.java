@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import base.BeforeAndAfter;
@@ -17,6 +18,11 @@ public class RegistrationPage extends BeforeAndAfter{
 	private By oTitle = By.id("title");
 	private By oGender = By.id("sex");
 	private By oLogin = By.xpath("//a[text()='Login']");
+	private WebDriver driver;
+	
+	public RegistrationPage(WebDriver driver) {
+		this.driver = driver;
+	}
 	
 	public boolean verifyElement() {
 		if(driver.findElement(oUserName).isDisplayed() && driver.findElement(oEmail).isDisplayed()
@@ -71,11 +77,11 @@ public class RegistrationPage extends BeforeAndAfter{
 	
 	public EmailVerificationPage click_on_register_button() {
 		driver.findElement(oRegister).click();
-		return new EmailVerificationPage();
+		return new EmailVerificationPage(driver); 
 	}
 	
 	public LoginPage clickOnLogin() { 
 		driver.findElement(oLogin).click();
-		return new LoginPage();
+		return new LoginPage(driver);
 	}
 }
