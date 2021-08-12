@@ -16,20 +16,25 @@ public class TC002_RegistrationPage extends BeforeAndAfter{
 	@BeforeTest
 	public void setUpTestCase() {
 		sSheetName = "TC002";
+		authors = "Vinith";
+		category = "Regression";
+		testCaseName = "Registration";
+		testDescription = "Testing the Registration functionality";
+		module = "Registration Module";
 	}
 	
   @Test(priority = 1)
   public void verifyAlltheElements() {
-	 boolean result = new LoginPage(driver)
+	 boolean result = new LoginPage(driver,node)
 	 .clickRegisterAccount()
 	 .verifyElement();
 	  Assert.assertTrue(result);
-	  new RegistrationPage(driver).clickOnLogin();
+	  new RegistrationPage(driver,node).clickOnLogin();
   }
 
   @Test(priority = 2,dataProvider = "ExcelData")
   public void registerWithMandatoryFields(String fName,String lName,String uName,String email,String password) {
-	  new LoginPage(driver)
+	  new LoginPage(driver,node)
 	 .clickRegisterAccount()
 	 .enter_the_first_name(fName)
 	 .enter_the_middle_name()
