@@ -14,20 +14,12 @@ public class LoginPage extends BeforeAndAfter{
 	private By oPassword = By.id("password");
 	private By oSignIn = By.xpath("//button[text()='Sign In']");
 	private By oRegister = By.xpath("//*[text()='Register For Account']");
-	private WebDriver driver; // Global Variable
-	private SeleniumWrapper oWrap;
-	
-	public LoginPage(WebDriver driver,ExtentTest node) {
-		this.driver = driver;
-		this.node = node;
-		oWrap = new SeleniumWrapper(driver,node);
-	}
-	
+	 	
 	public boolean verifyElement() {
 		
-		if(oWrap.verifyDisplayedwithReturn(driver.findElement(oUsername))&&oWrap.verifyDisplayedwithReturn(driver.findElement(oPassword))
-				&& oWrap.verifyDisplayedwithReturn(driver.findElement(oSignIn))&&
-				oWrap.verifyDisplayedwithReturn(driver.findElement(oRegister))) {
+		if(verifyDisplayedwithReturn(getDriver().findElement(oUsername))&&verifyDisplayedwithReturn(getDriver().findElement(oPassword))
+				&& verifyDisplayedwithReturn(getDriver().findElement(oSignIn))&&
+				verifyDisplayedwithReturn(getDriver().findElement(oRegister))) {
 			return true;
 		}else {
 			return false;
@@ -35,23 +27,23 @@ public class LoginPage extends BeforeAndAfter{
 	}
 	
 	public LoginPage typeUserName(String sUserName) {
-		oWrap.type(driver.findElement(oUsername), sUserName);
+		type(getDriver().findElement(oUsername), sUserName);
 		return this;
 	}
 	
 	public LoginPage typePassword(String sPassword) {
-		oWrap.type(driver.findElement(oPassword), sPassword);
+		type(getDriver().findElement(oPassword), sPassword);
 		return this;
 	}
 	
 	public HomePage clickSignIn() {
-		oWrap.click(driver.findElement(oSignIn));
-		return new HomePage(driver,node);
+		click(getDriver().findElement(oSignIn));
+		return new HomePage();
 	}
 	
 	public LoginPage clickSignIn_InvalidDetails() {
-		driver.findElement(oSignIn).click();
-		boolean result = oWrap.verifyDisplayedwithReturn(driver.findElement(oRegister));
+		getDriver().findElement(oSignIn).click();
+		boolean result =verifyDisplayedwithReturn(getDriver().findElement(oRegister));
 		if(result) {
 			System.out.println("User remains in Login Page due to Invalid Credential!!!");
 		}else {
@@ -61,8 +53,8 @@ public class LoginPage extends BeforeAndAfter{
 	}
 	
 	public RegistrationPage clickRegisterAccount() {
-		oWrap.click(driver.findElement(oRegister));
-		return new RegistrationPage(driver,node);
+		click(getDriver().findElement(oRegister));
+		return new RegistrationPage();
 	}
 
 }

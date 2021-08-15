@@ -13,6 +13,11 @@ public abstract class HTMLReport {
 	public static ExtentReports extent;
 	public ExtentTest test,node;
 	public String authors,category;
+	public static ThreadLocal<ExtentTest> tlNode = new ThreadLocal<ExtentTest>();
+	
+	public ExtentTest getNode() {
+		return tlNode.get();
+	}
 	
 	public void startReport() {
 		html = new ExtentHtmlReporter("./report/UIBankReport.html");
@@ -33,19 +38,19 @@ public abstract class HTMLReport {
 	}
 
 	public ExtentTest startTestcase(String nodes) {
-		node = test.createNode(nodes);
-		//tlNode.set(testSuite.createNode(nodes));
-		return node;
+		//node = test.createNode(nodes);
+		tlNode.set(test.createNode(nodes));
+		return getNode();
 	}
 	
 	public void reportStep(String desc,String status) {
 		try {
 		if(status.equalsIgnoreCase("pass")){
-			node.pass(desc, MediaEntityBuilder.createScreenCaptureFromPath(takeScreenshot()).build());
+			getNode().pass(desc, MediaEntityBuilder.createScreenCaptureFromPath(takeScreenshot()).build());
 			} else if(status.equalsIgnoreCase("fail")) {
-				node.fail(desc, MediaEntityBuilder.createScreenCaptureFromPath(takeScreenshot()).build());	
+				getNode().fail(desc, MediaEntityBuilder.createScreenCaptureFromPath(takeScreenshot()).build());	
 			} else {
-				node.info(desc);	
+				getNode().info(desc);	
 			}
 		}catch (IOException e) {
 			// TODO Auto-generated catch block

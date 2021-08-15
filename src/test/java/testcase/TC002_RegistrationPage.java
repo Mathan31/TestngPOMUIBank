@@ -25,16 +25,16 @@ public class TC002_RegistrationPage extends BeforeAndAfter{
 	
   @Test(priority = 1)
   public void verifyAlltheElements() {
-	 boolean result = new LoginPage(driver,node)
+	 boolean result = new LoginPage()
 	 .clickRegisterAccount()
 	 .verifyElement();
 	  Assert.assertTrue(result);
-	  new RegistrationPage(driver,node).clickOnLogin();
+	  new RegistrationPage().clickOnLogin();
   }
 
   @Test(priority = 2,dataProvider = "ExcelData")
   public void registerWithMandatoryFields(String fName,String lName,String uName,String email,String password) {
-	  new LoginPage(driver,node)
+	  new LoginPage()
 	 .clickRegisterAccount()
 	 .enter_the_first_name(fName)
 	 .enter_the_middle_name()

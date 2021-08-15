@@ -17,10 +17,11 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
 import libraries.HTMLReport;
+import libraries.SeleniumWrapper;
 import utilities.ExcelReader;
 import utilities.PropertiesReader;
 
-public class BeforeAndAfter extends HTMLReport{
+public class BeforeAndAfter extends SeleniumWrapper{
 	
 	public int iBrowserType = 1; // 1-Chrome,2-FF,3-Edge
 	public WebDriver driver;
@@ -65,19 +66,20 @@ public class BeforeAndAfter extends HTMLReport{
 			driver = new ChromeDriver();
 			break;
 		}
-		driver.manage().window().maximize();
-		driver.manage().deleteAllCookies();
+		tlDriver.set(driver);
+		getDriver().manage().window().maximize();
+		getDriver().manage().deleteAllCookies();
 		sURL = PropertiesReader.getPropertyValue(sProName, "url");
-		driver.get(sURL);
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		getDriver().get(sURL);
+		getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		startTestCase(testCaseName, testDescription);
 		startTestcase(module);
 	}
   
   @AfterClass
   public void closeBrowser() {
-		driver.quit();
+	  getDriver().quit();
 	}
   
   @DataProvider(name = "ExcelData")
@@ -86,18 +88,6 @@ public class BeforeAndAfter extends HTMLReport{
 		return data;
 	}
 
-  public String takeScreenshot() {
-		String sPath = System.getProperty("user.dir")+"/snap/img"+System.currentTimeMillis()+".png";
-		TakesScreenshot oShot = (TakesScreenshot)driver;
-		File osrc = oShot.getScreenshotAs(OutputType.FILE);
-		File dis = new File(sPath);
-		try {
-			FileUtils.copyFile(osrc, dis);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return sPath;
-	}
+ 
 
 }
