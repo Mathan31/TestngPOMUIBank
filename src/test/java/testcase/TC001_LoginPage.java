@@ -12,7 +12,7 @@ public class TC001_LoginPage extends BeforeAndAfter {
 	@BeforeTest
 	public void setUpTestCase() {
 		sSheetName = "TC001";
-		authors = "MATHAN";
+		authors = "Mathan";
 		category = "Smoke";
 		testCaseName = "Login";
 		testDescription = "Testing the Login functionality";
